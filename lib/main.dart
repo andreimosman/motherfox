@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'picwithinsult.dart';
@@ -83,6 +85,12 @@ class PicsWithInsultsHome extends StatefulWidget {
 class _PicsWithInsultsHomeState extends State<PicsWithInsultsHome> {
   String imageUrl = '';
   String insultText = '';
+  Image preloadedImage;
+
+  String nextImageUrl = '';
+  String nextInsultText = '';
+
+  Image nextPreloadedImage;
 
   Future<FoxImage> fetchFoxImage() async {
     //
@@ -115,7 +123,38 @@ class _PicsWithInsultsHomeState extends State<PicsWithInsultsHome> {
     }
   }
 
+  Future<void> loadNextInsult() async {
+    FoxImage fox = await fetchFoxImage();
+    Insult insult = await fetchInsult();
+
+    nextImageUrl = fox.image;
+    var unescape = HtmlUnescape();
+    nextInsultText = unescape.convert(insult.insult);
+
+    nextPreloadedImage = Image.network(
+      nextImageUrl,
+      height: double.infinity,
+      fit: BoxFit.fitHeight,
+    );
+
+    precacheImage(NetworkImage(nextImageUrl), context);
+  }
+
   void _updateInsult() async {
+    if (imageUrl.isEmpty) {
+      // print("Image is empty!");
+      await loadNextInsult();
+    }
+
+    setState(() {
+      imageUrl = nextImageUrl;
+      insultText = nextInsultText;
+      preloadedImage = nextPreloadedImage;
+    });
+
+    loadNextInsult();
+
+    /**
     FoxImage fox = await fetchFoxImage();
     Insult insult = await fetchInsult();
 
@@ -125,6 +164,7 @@ class _PicsWithInsultsHomeState extends State<PicsWithInsultsHome> {
       insultText = unescape.convert(insult.insult);
     });
     // print(fox.image);
+     */
   }
 
   @protected
@@ -144,7 +184,7 @@ class _PicsWithInsultsHomeState extends State<PicsWithInsultsHome> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: PicWithInsult(imageUrl, insultText),
+        child: PicWithInsult(preloadedImage, insultText),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _updateInsult,

@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 
 class PicWithInsult extends StatelessWidget {
-  final String imageUrl;
+  final Image preloadedImage;
+  // final String imageUrl;
   final String insult;
 
-  PicWithInsult(this.imageUrl, this.insult);
+  // PicWithInsult(this.imageUrl, this.insult);
+  PicWithInsult(this.preloadedImage, this.insult);
 
   @override
   Widget build(BuildContext context) {
-    return imageUrl.length > 0
+    return insult.length > 0
         ? Container(
             child: (Stack(
               children: [
-                Image.network(
-                  imageUrl,
-                  height: double.infinity,
-                  fit: BoxFit.fitHeight,
-                ),
+                preloadedImage,
                 Container(
                   width: double.infinity,
                   color: Color.fromRGBO(0, 0, 0, 0.4),
