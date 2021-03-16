@@ -1,4 +1,4 @@
-# pics_and_insults
+# MotherFox
 
 I'm doing this project to learn Flutter.
 
