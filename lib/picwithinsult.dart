@@ -35,23 +35,5 @@ class PicWithInsult extends StatelessWidget {
             )),
           )
         : Container();
-
-    /**
-    return Container(
-      height: 500,
-      width: 500,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(imageUrl),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Stack(
-        children: [
-          Text("teste"),
-        ],
-      ),
-    );
-    */
   }
 }
