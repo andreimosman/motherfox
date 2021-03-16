@@ -64,11 +64,11 @@ class PicsWithInsultsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pics and Insults',
+      title: 'Mother Fox!',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PicsWithInsultsHome(title: 'Pics and Insults'),
+      home: PicsWithInsultsHome(title: 'Mother Fox!'),
     );
   }
 }
