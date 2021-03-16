@@ -134,7 +134,8 @@ class _PicsWithInsultsHomeState extends State<PicsWithInsultsHome> {
     nextPreloadedImage = Image.network(
       nextImageUrl,
       height: double.infinity,
-      fit: BoxFit.fitHeight,
+      width: double.infinity,
+      fit: BoxFit.cover,
     );
 
     precacheImage(NetworkImage(nextImageUrl), context);
